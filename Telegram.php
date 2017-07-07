@@ -38,13 +38,32 @@ function start() {
   Lista comandi:
   /aggiungi <nome account> - aggiungi un nuovo account
   /rimuovi <nome account> - rimuovi account
-  /lista".PHP_EOL;
+  /lista - vedi la lista degli account
+  /aggiorna - aggiorna Telegram Desktop".PHP_EOL;
   $response = trim(fgets(STDIN));
   if ($response == "/lista") {
     system('clear');
     echo "\033[0;31m Lista degli account: \033[0m".PHP_EOL;
     echo shell_exec('ls .telegramLauncher/data');
     echo PHP_EOL;
+    unset($response);
+    start();
+  }
+  if ($response == "/aggiorna") {
+    system('clear');
+    echo "\033[0;31m Elimino Telegram dekstop... \033[0m".PHP_EOL;
+    exec('rm -rf .telegramLauncher/bin');
+    mkdir('.telegramLauncher/bin');
+    echo 'Scarico l\'ultima versione di Telegram desktop...'.PHP_EOL;
+    exec('wget -O .telegramLauncher/temp/Telegram.tar.xy https://tdesktop.com/linux/current?alpha=1');
+    echo 'Decomprimo i file...'.PHP_EOL;
+    exec('tar xf .telegramLauncher/temp/Telegram.tar.xy -C .telegramLauncher/bin');
+    exec('chmod -R 777 .telegramLauncher/bin');
+    echo 'Cancello i file temporanei...'.PHP_EOL;
+    rrmdir('.telegramLauncher/temp');
+    echo 'Fatto!';
+    sleep(2);
+    system('clear');
     unset($response);
     start();
   }
