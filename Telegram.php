@@ -98,8 +98,13 @@ function start() {
 }
 start();
 function open($name) {
+  if ($name == "") {
+    system('clear');
+    start();
+  }
   if (file_exists('.telegramLauncher/data/'.$name)) {
-    shell_exec('.telegramLauncher/bin/Telegram/Telegram -many -workdir .telegramLauncher/data/'.$name);
+    exec('bash -c "exec nohup .telegramLauncher/bin/Telegram/Telegram -many -workdir .telegramLauncher/data/'.$name . ' > /dev/null 2>&1 &"');
+    exit;
   }
   else {
     system('clear');
