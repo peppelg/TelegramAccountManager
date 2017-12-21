@@ -31,6 +31,14 @@ function start() {
     echo 'Fatto!';
     sleep(2);
     system('clear');
+    if(file_exists('.bashrc') and !file_exists('.telegramLauncher/.bashtrue')){
+      $old = file_get_contents('.bashrc') . "\n#TelegramLauncher\nalias tdesk='cd ~ && php Telegram.php'";
+      file_put_contents('.bashrc', $old);
+      escapeshellcmd('source ~/.bashrc');
+      touch('.telegramLauncher/.bashtrue');
+      echo "\nPuoi avviare Telegram launcher direttamente col comando 'tdesk'.\n";
+      unset($old);
+    }
   }
   echo "Benvenuto!
   Scrivi il nome dell'account per caricarlo.
